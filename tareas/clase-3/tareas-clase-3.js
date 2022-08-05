@@ -6,7 +6,7 @@
 // Si el nombe del usuario es el mismo que el que nombre que eligieron
 // Imprimir "Hola " y el nombre, " te llamás igual que mi ..."
 // Si no, simplemente imprimir "Hola " + nombre!
-let nombreUsuario = prompt("Cual es tu nombre")
+/* let nombreUsuario = prompt("Cual es tu nombre")
 const MI_NOMBRE = "Franco"
 const NOMBRE_AMIGA = "Karol"
 
@@ -16,11 +16,21 @@ if (nombreUsuario.toLowerCase() === MI_NOMBRE.toLowerCase()) {
     alert("Hola " + nombreUsuario + "! Te llamas igual que mi amiga")
 } else {
     alert("Hola " + nombreUsuario)
-}
+} */
 
 //Tarea 2:
 // Preguntar la edad del usuario
 // Hacerle saber si tiene más, menos ó la misma edad que nosotros.
+let edadUsuario = Number(prompt("Cual es tu edad?"))
+const MI_EDAD = 23
+
+if (edadUsuario < MI_EDAD) {
+    alert("Sos mas joven que yo")
+} else if (edadUsuario === MI_EDAD) {
+    alert("Tenemos la misma edad")
+} else if (edadUsuario > MI_EDAD) {
+    alert("Soy mas joven que vos")
+}
 
 //Tarea 3:
 // Preguntarle al usuario si tiene documento, y que conteste con "si" o "no".
