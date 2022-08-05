@@ -21,7 +21,7 @@ if (nombreUsuario.toLowerCase() === MI_NOMBRE.toLowerCase()) {
 //Tarea 2:
 // Preguntar la edad del usuario
 // Hacerle saber si tiene más, menos ó la misma edad que nosotros.
-let edadUsuario = Number(prompt("Cual es tu edad?"))
+/* let edadUsuario = Number(prompt("Cual es tu edad?"))
 const MI_EDAD = 23
 
 if (edadUsuario < MI_EDAD) {
@@ -30,7 +30,7 @@ if (edadUsuario < MI_EDAD) {
     alert("Tenemos la misma edad")
 } else if (edadUsuario > MI_EDAD) {
     alert("Soy mas joven que vos")
-}
+} */
 
 //Tarea 3:
 // Preguntarle al usuario si tiene documento, y que conteste con "si" o "no".
@@ -40,3 +40,21 @@ if (edadUsuario < MI_EDAD) {
 // Si no tiene documento, no dejarlo entrar al bar.
 // Si no entendemos la respuesta, le decimos que no entendimos la respuesta.
 // Punto bonus: SI, NO, Si, No, si, no.
+let usuarioTieneDocumento = prompt('Tenes tu documento? Responde "si" o "no"').toLowerCase()
+
+if (usuarioTieneDocumento === "si") {
+    let usuarioEsMayor = prompt('Tenes 18 años o mas? Responde "si" o "no"').toLowerCase()
+
+    if (usuarioEsMayor === "si") {
+        alert("Podes pasar al bar")
+    } else if (usuarioEsMayor === "no") {
+        alert("No podes entrar al bar sin ser mayor de edad")
+    } else {
+        alert("No entendi tu respuesta")
+    }
+
+} else if (usuarioTieneDocumento === "no") {
+    alert("Sin documento no podes entrar al bar")
+} else {
+    alert("No entendi tu respuesta")
+}
