@@ -6,6 +6,17 @@
 // Si el nombe del usuario es el mismo que el que nombre que eligieron
 // Imprimir "Hola " y el nombre, " te llamás igual que mi ..."
 // Si no, simplemente imprimir "Hola " + nombre!
+let nombreUsuario = prompt("Cual es tu nombre")
+const MI_NOMBRE = "Franco"
+const NOMBRE_AMIGA = "Karol"
+
+if (nombreUsuario.toLowerCase() === MI_NOMBRE.toLowerCase()) {
+    alert("Hola, Tocayo! Yo tambien me llamo " + MI_NOMBRE)
+} else if (nombreUsuario.toLowerCase() === NOMBRE_AMIGA.toLowerCase()) {
+    alert("Hola " + nombreUsuario + "! Te llamas igual que mi amiga")
+} else {
+    alert("Hola " + nombreUsuario)
+}
 
 //Tarea 2:
 // Preguntar la edad del usuario
