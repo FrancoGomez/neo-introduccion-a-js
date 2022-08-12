@@ -17,6 +17,13 @@ const $menor = document.querySelector("#menor");
 const $mayor = document.querySelector("#mayor");
 const $promedio = document.querySelector("#promedio");
 
+const $menorSalario = document.querySelector("#menor-salario");
+const $mayorSalario = document.querySelector("#mayor-salario");
+const $promedioSalario = document.querySelector("#promedio-salario");
+const $promedioSalarioMensual = document.querySelector(
+    "#promedio-salario-mensual"
+);
+
 $aceptar.onclick = () => {
     let numeroInegrantes = obtenerNumeroInegrantes();
     if (!numeroInegrantes) return;
@@ -38,14 +45,54 @@ const obtenerNumeroInegrantes = () => {
 
 const crearIntegrantes = (numeroInegrantes) => {
     for (let i = 0; i < numeroInegrantes; i++) {
-        const $input = document.createElement("input");
-        $input.setAttribute("type", "number");
-        $input.setAttribute("placeholder", "Ingresa la edad del familiar");
-        $input.style.display = "block";
-        $input.style.margin = "10px 0";
-        $input.className = "input-grupo-familiar input-edad";
+        const $div = document.createElement("div");
+        $div.className = "input-grupo-familiar";
+        $div.style.margin = "10px 0";
 
-        $form.appendChild($input);
+        const $inputEdad = document.createElement("input");
+        $inputEdad.setAttribute("type", "number");
+        $inputEdad.setAttribute("placeholder", "Ingresa la edad del familiar");
+        $inputEdad.className = "input-edad";
+        $inputEdad.style.marginRight = "10px";
+
+        const $inputSalario = document.createElement("input");
+        $inputSalario.setAttribute("type", "number");
+        $inputSalario.setAttribute(
+            "placeholder",
+            "Ingresa el salario del familiar"
+        );
+        $inputSalario.className = "input-salario oculto";
+        $inputSalario.style.marginRight = "10px";
+
+        const $inputAgregarSalario = document.createElement("input");
+        $inputAgregarSalario.setAttribute("type", "button");
+        $inputAgregarSalario.setAttribute("value", "Agregar salario");
+        $inputAgregarSalario.style.marginRight = "10px";
+        $inputAgregarSalario.onclick = () =>
+            agregarSalario(
+                $inputSalario,
+                $inputAgregarSalario,
+                $inputQuitarSalario
+            );
+
+        const $inputQuitarSalario = document.createElement("input");
+        $inputQuitarSalario.setAttribute("type", "button");
+        $inputQuitarSalario.setAttribute("value", "Quitar salario");
+        $inputQuitarSalario.className = "oculto";
+        $inputQuitarSalario.style.marginRight = "10px";
+        $inputQuitarSalario.onclick = () =>
+            quitarSalario(
+                $inputSalario,
+                $inputAgregarSalario,
+                $inputQuitarSalario
+            );
+
+        $div.appendChild($inputEdad);
+        $div.appendChild($inputSalario);
+        $div.appendChild($inputAgregarSalario);
+        $div.appendChild($inputQuitarSalario);
+
+        $form.appendChild($div);
     }
 
     crearBotonFinalizar();
@@ -82,14 +129,31 @@ const imprimirResultados = () => {
 
     $menor.textContent = `La menor edad es de: ${calcularMenor($arrayEdades)}`;
     $mayor.textContent = `La mayor edad es de: ${calcularMayor($arrayEdades)}`;
-    $promedio.textContent = `La edad promedio es de: ${calcularPromedio($arrayEdades)}`;
+    $promedio.textContent = `La edad promedio es de: ${calcularPromedio(
+        $arrayEdades
+    )}`;
+
+    const $arraySalarios = document.querySelectorAll("form .input-salario");
+
+    $menorSalario.textContent = `El menor salario es de: ${calcularMenor(
+        $arraySalarios
+    )}`;
+    $mayorSalario.textContent = `El mayor salario es de: ${calcularMayor(
+        $arraySalarios
+    )}`;
+    $promedioSalario.textContent = `El salario promedio es de: ${calcularPromedio(
+        $arraySalarios
+    )}`;
+    $promedioSalarioMensual.textContent = `El salario mensual promedio es de: ${calcularSalarioPromedioMensual(
+        $arraySalarios
+    )}`;
 };
 
 const calcularMenor = (array) => {
     let menor = Number(array[0].value);
 
     array.forEach((input) => {
-        if (Number(input.value) < menor) {
+        if (Number(input.value) < menor && Number(input.value) !== 0) {
             menor = Number(input.value);
         }
     });
@@ -101,7 +165,7 @@ const calcularMayor = (array) => {
     let mayor = Number(array[0].value);
 
     array.forEach((input) => {
-        if (Number(input.value) > mayor) {
+        if (Number(input.value) > mayor && Number(input.value) !== 0) {
             mayor = Number(input.value);
         }
     });
@@ -111,12 +175,57 @@ const calcularMayor = (array) => {
 
 const calcularPromedio = (array) => {
     let resultado = 0;
+    let contador = 0;
 
     array.forEach((input) => {
-        resultado += Number(input.value);
+        if (Number(input.value) !== 0) {
+            resultado += Number(input.value);
+            contador++;
+        }
     });
 
-    return resultado / array.length;
+    return resultado / contador;
+};
+
+const agregarSalario = (
+    $inputSalario,
+    $inputAgregarSalario,
+    $inputQuitarSalario
+) => {
+    $inputSalario.className = $inputSalario.className.replace(" oculto", "");
+    $inputQuitarSalario.className = $inputQuitarSalario.className.replace(
+        "oculto",
+        ""
+    );
+    $inputAgregarSalario.className += " oculto";
+};
+
+const quitarSalario = (
+    $inputSalario,
+    $inputAgregarSalario,
+    $inputQuitarSalario
+) => {
+    $inputAgregarSalario.className = $inputAgregarSalario.className.replace(
+        " oculto",
+        ""
+    );
+    $inputSalario.className += " oculto";
+    $inputQuitarSalario.className += " oculto";
+};
+
+const calcularSalarioPromedioMensual = (array) => {
+    const MESES_EN_ANIO = 12;
+    let resultado = 0;
+    let contador = 0;
+
+    array.forEach((input) => {
+        if (Number(input.value) !== 0) {
+            resultado += Number(input.value);
+            contador++;
+        }
+    });
+
+    return resultado / MESES_EN_ANIO / contador;
 };
 
 /*
